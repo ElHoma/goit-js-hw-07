@@ -7,25 +7,19 @@ console.log(galleryItems);
 const imgList = document.querySelector(`.gallery`);
 
 galleryItems.forEach(function (item) {
-  let imgAtt = item.original;
+  let imgOrig = item.original;
+  let imgPrev = item.preview;
+  let imgDesc = item.description;
 
-  const listItem = document.createElement(`li`);
-  listItem.classList.add("gallery__item");
+  const template = `<li class="gallery__item">
+   <a class="gallery__link" href="${imgOrig}">
+      <img class="gallery__image" src="${imgPrev}" alt="${imgDesc}" />
+   </a>
+</li>`;
 
-  const itemLink = document.createElement(`a`);
-  itemLink.classList.add("gallery__link");
-  itemLink.href = imgAtt;
-
-  const itemImage = document.createElement(`img`);
-  itemImage.classList.add("gallery__image");
-  itemImage.src = item.preview;
-  itemImage.alt = item.description;
-
-  itemLink.appendChild(itemImage);
-
-  listItem.appendChild(itemLink);
-
-  imgList.appendChild(listItem);
+  const elem = document.createElement("li");
+  elem.innerHTML = template;
+  imgList.appendChild(elem);
 });
 
 var lightbox = new SimpleLightbox(".gallery a", {
